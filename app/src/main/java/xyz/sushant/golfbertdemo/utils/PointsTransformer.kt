@@ -45,7 +45,7 @@ class PointsTransformer(var width: Double, var height: Double, var padding: Doub
                     polygon = ArrayList<Coordinates>().apply {
                         it.polygon.forEach {
                             add(Coordinates(
-                                lat = ((it.lat - minLat) * scale + padding),
+                                lat = ((it.lat - maxLat) * -1 * scale + padding),
                                 long = ((it.long - minLong) * scale + padding)
                             ))
                         }
