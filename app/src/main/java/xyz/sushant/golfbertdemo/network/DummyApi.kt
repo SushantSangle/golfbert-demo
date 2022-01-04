@@ -10,9 +10,10 @@ import xyz.sushant.golfbertdemo.models.hole.HolesList
 import xyz.sushant.golfbertdemo.models.polygon.PolygonList
 
 class DummyApi(var context: Context) {
-    val gson = Gson()
 
-    val route = object {
+    companion object {
+        val gson = Gson()
+
         fun getAllAvailableCourses(): Response<CoursesList> = Response.success(gson.fromJson("{\n" +
             "  \"resources\": [\n" +
             "    {\n" +
