@@ -3,12 +3,10 @@ package xyz.sushant.golfbertdemo.views
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Resources
-import android.graphics.BitmapFactory
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
+import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
+import xyz.sushant.golfbertdemo.R
 import xyz.sushant.golfbertdemo.models.FlagDataPostions
 import xyz.sushant.golfbertdemo.models.polygon.PolygonList
 
@@ -24,29 +22,42 @@ class GolfMap(context: Context, attrs: AttributeSet?) : View(context, attrs) {
 
     init {
         paint = Paint()
-        paint.apply { this.color= Color.BLUE
+        paint.apply {
+            this.color= Color.BLUE
             this.strokeWidth=5f
-            this.style=Paint.Style.STROKE
-            this.setStrokeCap(Paint.Cap.ROUND);
-            this.setStrokeJoin(Paint.Join.ROUND);}
+            this.style=Paint.Style.FILL_AND_STROKE
+        }
     }
 
     override fun onDraw(c: Canvas) {
         super.onDraw(c)
         polygonList.resources.forEach {
             val size = it.polygon.size
+            val path = Path()
 
-            for(i in it.polygon.indices) {
-                val point1 = it.polygon[i]
-                val point2 = it.polygon[(i+1) % size]
-                c.drawLine(
-                    point1.lat.toFloat(),
-                    point1.long.toFloat(),
-                    point2.lat.toFloat(),
-                    point2.long.toFloat(),
-                    paint
-                )
+            when(it.surfacetype) {
+                "Green" -> {
+                    paint.color = context.resources.getColor(R.color.green)
+                }
+                "Fairway" -> {
+                    paint.color = context.resources.getColor(R.color.fairway)
+                }
+                "Sand" -> {
+                    paint.color = context.resources.getColor(R.color.sand)
+                }
+                "Woods" -> {
+                    paint.color = context.resources.getColor(R.color.woods)
+                }
+
             }
+
+            path.reset()
+            path.moveTo(it.polygon[0].long.toFloat(),it.polygon[0].lat.toFloat())
+            for(i in 1..size) {
+                val point = it.polygon[(i + 1) % size]
+                path.lineTo(point.long.toFloat(),point.lat.toFloat())
+            }
+            c.drawPath(path,paint)
         }
     }
 }
