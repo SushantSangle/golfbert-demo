@@ -36,11 +36,11 @@ class MainActivity : AppCompatActivity() {
                 frameLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this)
                 width = frameLayout.getMeasuredWidth().toDouble()
                 height = frameLayout.getMeasuredHeight().toDouble()
-                val normalizedValue = PointsTransformer(width = width, height = height, padding = 10.0).getTransformedPolygon(polygonList)
+                val normalizedValue = PointsTransformer(width = width, height = height, padding = 30.0).getTransformedPolygon(polygonList)
                 Log.d(MAIN_ACTIVITY_TAG, Gson().toJson(normalizedValue))
                 val coOrdinate = normalizedValue.resources[0].polygon[0]
                 Log.e("0th Co-ordinate","${coOrdinate.lat} ${coOrdinate.long}")
-                golfmap.
+                golfmap.polygonList = normalizedValue
             }
         })
 
