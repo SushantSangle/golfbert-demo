@@ -15,6 +15,7 @@
     </com.google.android.material.appbar.AppBarLayout>
     <xyz.sushant.golfbertdemo.views.GolfMap
         android:layout_marginTop="60dp"
+        android:background="@color/white"
         android:id="@+id/golfMapMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
